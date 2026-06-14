@@ -17,7 +17,7 @@ img{
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     color: black;
     font-weight: 200;
-    font-size: 0.46em;
+    font-size: 0.42em;
            /* fix the broken "14x" */
     position: sticky;
     top: 0;
@@ -29,6 +29,8 @@ img{
     -webkit-box-pack: justify;
     justify-content: space-between;
     align-items: center;    
+
+
     height: 100%;          
     list-style: none;
 }
@@ -205,6 +207,8 @@ color: black;
     color: Black;
 }
 
+/* 1st section */
+
 .fourth-highlight-wrapper {
 display: flex;
 -webkit-box-pack: justify;
@@ -212,64 +216,65 @@ justify-content: space-between;
 background: #fff;
 }
 .left-side-wrapper {
-height: 550px;
+
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 text-align: center;
 width: 48.5%;
 margin: 1% 0.5% 0% 1%;
-padding-top: 54px;
+
 }
 .fourth-highlight-wrapper .left-side-wrapper {
-background-image: url("/images/promo_macbook_air_m5__e5xk2yysqiie_small_2x.jpg");
+background-image: url("/images/macbook.jpg");
+    height: 395px; 
 }
 .right-side-wrapper {
-height: 550px;
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 text-align: center;
 width: 48.5%;
 margin: 1% 1% 0% 0.5%;
-padding-top: 54px;
+
 }
 .fourth-highlight-wrapper .right-side-wrapper {
 background-image: url("/images/ipad.jpg");
+    height: 395px; 
 }
 
 .description-wraper {
 max-width: 430px;
 margin: 0 auto;
-padding-top: 10px;
+padding-top: 25px;
 color: black;
 font-weight: 500;
-padding-bottom: 10px;
-font-size: 30px;
+padding-bottom: 0px;
+font-size: 25px;
 }
 .describeleftside{
-    font-size: 15px;
-    padding-bottom: 10px;
+    font-size: 11px;
+    padding-bottom: 0px;
 }
 
 .RHB{
    border: 1px solid #0076DF; 
     border-radius: 40px;
     background-color: #0076DF;
-    font-size: 15px;
+    font-size: 11px;
     color: white;
     height: 40px;
-    width: 135px;
+    width: 90px;
     cursor: pointer;
 }
 .RHB2{
     border: 1px solid #0076DF; 
     border-radius: 40px;
     background-color: transparent;
-    font-size: 15px;
+    font-size: 11px;
     color: #0076DF;
     height: 40px;
-    width: 100px;
+    width: 60px;
     cursor: pointer;
 }
 .RHB2:hover{
@@ -279,12 +284,13 @@ font-size: 30px;
 .describeleftside-2{
         font-size: 15px;
     padding-bottom: 0px;
+
 }
 
 .description-wraper-v2{
     max-width: 430px;
     margin: 0 auto;
-    padding-top: 10px;
+    padding-top: 4px;
     color: black;
     padding-bottom: 15px;
 }
@@ -297,48 +303,20 @@ background: #fff;
 }
 .fifth-highlight-wrapper .left-side-wrapper {
 background-image: url("/images/promo_macbook_pro__c9td9w1mc8ia_small_2x.jpg");
-height: 550px;
+height: 395px;
 }
 .fifth-highlight-wrapper .right-side-wrapper {
 background-image: url("/images/promo_apple_watch_series_11__gnlwqxe1jlu2_small_2x.jpg");
 color: #fff;
 background-size: cover;
 background-position: center;
-height: 550px;
-}
-.fifthbtn{
-        border: 1px solid #0076DF; 
-    border-radius: 40px;
-    background-color: transparent;
-    font-size: 15px;
-    color: #0076DF;
-    height: 40px;
-    width: 100px;
-    cursor: pointer;
+height: 395px;
 }
 
-.describe{
-    padding-top: 0%;
-    color: rgb(29, 29, 31);
-}
 .watch-more-wrapper{
    padding-top: 20px;
 }
-.RHB-2{
-    border: 1px solid #0076DF; 
-    border-radius: 50px;
-    font-size: 20px;
-    color: #0076DF;
-    background-color: transparent;
-    height: 40px;
-    width: 90px;
-    cursor: pointer;
-}
 
-.RHB-2:hover{
-    background-color: #0076DF;
-    color: white;
-}
 
 .fifth-highlight-wrapper-2 {
 display: flex;
@@ -347,27 +325,27 @@ justify-content: space-between;
 background: #fff;
 }
 .fifth-highlight-wrapper-2 .left-side-wrapper-2 {
-background-image: url("/images/promo_apple_card_airpods__cq0gu2a9hxkm_medium_2x.jpg");
-height: 550px;
-background-position: center;
+background-image: url("/images/Airpods.jpg");
+height: 395px;
+background-position: cover;
 background-repeat: no-repeat;
 background-size: cover;
 text-align: center;
 width: 48.5%;
 margin: 1% 0.5% 0% 1%;
-padding-top: 54px;
-/* height: 550px; */
+
+
 }
 .fifth-highlight-wrapper-2 .right-side-wrapper-2 {
 background-image: url("/images/promo_iphone_tradein__bugw15ka691e_medium_2x.jpg");
-height: 550px;
+height: 395px;
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 text-align: center;
 width: 48.5%;
 margin: 1% 0.5% 0% 1%;
-padding-top: 54px;
+
 padding-left: 7px;
 
 }
