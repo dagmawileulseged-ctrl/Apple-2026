@@ -11,73 +11,225 @@ img{
     max-width: 100%;
 }
 /* Header style */
-.header-wrapper {
-    background-color: rgba(255, 255, 255, 0.72); /* also fix: rgb → rgba */
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    color: black;
-    font-weight: 200;
-    font-size: 0.42em;
-           /* fix the broken "14x" */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.header-wrapper ul {
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    align-items: center;    
-
-
-    height: 100%;          
-    list-style: none;
-}
-.internal-wrapper{
-    width: 680px;
-    padding: 0 10px;
-    margin: 0 auto;
-
-}
-
-.header-wrapper .header-links-wrapper ul li a {
-    text-decoration: none;
-    color: black;
-}
-.header-wrapper ul {
-    list-style: none;
-}
-.header-wrapper .header-links-wrapper ul li{
-    display: inline-block;
-    padding: 0px 0px 8px;
-    height: auto;
-    opacity: 0.8;   
-}
-
-.header-wrapper ul li:hover{
-    opacity: 1;
-}
-.logo-link, .search-link, .cart-link{
-    position: relative;
-    top: -6px;
-    padding: 0;
-    width:18px;
-    display: block;
-    color: black;
-
-}
-
-
-.header-wrapper .header-links-wrapper ul li.logo-link{
-    padding: 12px 0px 10px;
-}
-.header-wrapper .header-links-wrapper ul li.search-link{
-    padding: 14px 0px 8px;
-}
-.header-wrapper .header-links-wrapper ul li.cart-link{
-    padding: 12px 0px 10px;
-}
+       
+ 
+      
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        .header-wrapper {
+            background-color: rgba(255, 255, 255, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            color: black;
+            font-weight: 200;
+            font-size: 0.42em;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+ 
+        .internal-wrapper {
+            width: 680px;
+            padding: 0 10px;
+            margin: 0 auto;
+        }
+ 
+        .header-links-wrapper ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            list-style: none;
+        }
+ 
+        .header-wrapper .header-links-wrapper ul li a {
+            text-decoration: none;
+            color: black;
+        }
+ 
+        .header-wrapper .header-links-wrapper ul li {
+            display: inline-block;
+            padding: 0px 0px 8px;
+            height: auto;
+            opacity: 0.8;
+        }
+ 
+        .header-wrapper ul li:hover {
+            opacity: 1;
+        }
+ 
+        .logo-link, .search-link, .cart-link {
+            position: relative;
+            top: -6px;
+            padding: 0;
+            width: 18px;
+            display: block;
+            color: black;
+        }
+ 
+        .header-wrapper .header-links-wrapper ul li.logo-link {
+            padding: 12px 0px 10px;
+        }
+ 
+        .header-wrapper .header-links-wrapper ul li.search-link {
+            padding: 14px 0px 8px;
+        }
+ 
+        .header-wrapper .header-links-wrapper ul li.cart-link {
+            padding: 12px 0px 10px;
+        }
+ 
+        /* ── Nav items that have dropdowns ── */
+        .store-item, .mac-item, .ipad-item, .iphone-item,
+        .watch-item, .vision-item, .airpods-item,
+        .tv-item, .entertainment-item, .accessories-item, .support-item {
+            position: static;
+        }
+ 
+        /* ── Shared dropdown styles ── */
+        .nav-dropdown {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 999;
+            /* fade out slowly, but fade in instantly when another opens */
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            padding-top: 2px;
+            pointer-events: none;
+        }
+ 
+        /* When any nav item is hovered, ALL dropdowns switch to instant-close */
+        .header-wrapper:has(li:hover) .nav-dropdown {
+            transition: opacity 0.15s ease, visibility 0.15s ease;
+        }
+ 
+        /* Show the matching dropdown */
+        .header-wrapper:has(.store-item:hover)         .store-dropdown,
+        .header-wrapper:has(.mac-item:hover)           .mac-dropdown,
+        .header-wrapper:has(.ipad-item:hover)          .ipad-dropdown,
+        .header-wrapper:has(.iphone-item:hover)        .iphone-dropdown,
+        .header-wrapper:has(.watch-item:hover)         .watch-dropdown,
+        .header-wrapper:has(.vision-item:hover)        .vision-dropdown,
+        .header-wrapper:has(.airpods-item:hover)       .airpods-dropdown,
+        .header-wrapper:has(.tv-item:hover)            .tv-dropdown,
+        .header-wrapper:has(.entertainment-item:hover) .entertainment-dropdown,
+        .header-wrapper:has(.accessories-item:hover)   .accessories-dropdown,
+        .header-wrapper:has(.support-item:hover)       .support-dropdown,
+        .nav-dropdown:hover {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+ 
+        /* ── Dropdown inner grid ── */
+        .dropdown-inner {
+            width: 680px;
+            margin: 0 auto;
+            padding: 22px 10px 28px;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 0 1.5rem;
+            align-items: start;
+        }
+ 
+        .dropdown-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+ 
+        .dropdown-col-label {
+            font-size: 11px;
+            color: #6e6e73;
+            font-weight: 400;
+            margin: 0 0 8px 0;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+ 
+        .dropdown-col-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1d1d1f;
+            line-height: 1.2;
+            margin: 0 0 12px 0;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+ 
+        .dropdown-plain-link {
+            font-size: 13px;
+            color: #1d1d1f;
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            margin-top: 4px;
+        }
+ 
+        .dropdown-plain-link:hover { text-decoration: underline; }
+ 
+        .dropdown-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+ 
+        .dropdown-links li {
+            margin-bottom: 9px;
+            opacity: 1 !important;
+            padding: 0;
+            display: block;
+        }
+ 
+        .dropdown-links li a {
+            font-size: 13px;
+            color: #1d1d1f;
+            text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+ 
+        .dropdown-links li a:hover { text-decoration: underline; }
+ 
+        /* ── Page dim overlay ── */
+        body::after {
+            content: '';
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(17px);
+            z-index: 998;
+            pointer-events: none;
+        }
+ 
+        body:has(.store-item:hover)::after,
+        body:has(.mac-item:hover)::after,
+        body:has(.ipad-item:hover)::after,
+        body:has(.iphone-item:hover)::after,
+        body:has(.watch-item:hover)::after,
+        body:has(.vision-item:hover)::after,
+        body:has(.airpods-item:hover)::after,
+        body:has(.tv-item:hover)::after,
+        body:has(.entertainment-item:hover)::after,
+        body:has(.accessories-item:hover)::after,
+        body:has(.support-item:hover)::after,
+        body:has(.nav-dropdown:hover)::after {
+            display: block;
+            animation: dimFadeIn 0.2s ease forwards;
+        }
+ 
+        @keyframes dimFadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
 
 
 /* Main */
