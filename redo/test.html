@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Apple-style Carousel | Pure CSS + Minimal JS</title>
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none; /* prevent accidental text selection while sliding */
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Helvetica Neue', 'SF Pro Text', 'SF Pro Display', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #000000; /* deep black background like Apple's hero sections */
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* smooth container for carousel */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;            /* full viewport height like Apple's hero carousel */
+      min-height: 600px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* ---------- THE CAROUSEL (CSS Grid based, scroll-snap magic) ---------- */
+    /* We use horizontal scroll-snap with mandatory snapping & smooth behavior.
+       The effect recreates Apple's fluid, inertia-based scrolling carousel. 
+       All visuals, parallax-like scaling, and fade transitions are done with pure CSS. */
+    .carousel-track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      height: 100%;
+      width: 100%;
+      /* Hide scrollbar but keep functionality (Apple style clean UI) */
+      scrollbar-width: none;   /* Firefox */
+      -ms-overflow-style: none;  /* IE/Edge */
+      cursor: grab;
+      scroll-snap-stop: always;
+      transition: scroll-behavior 0.2s;
+    }
+
+    .carousel-track:active {
+      cursor: grabbing;
+    }
+
+    .carousel-track::-webkit-scrollbar {
+      display: none;  /* Chrome/Safari/Opera */
+    }
+
+    /* each slide: full width, snap align start, centered content */
+    .slide {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease-out, filter 0.4s ease;
+      will-change: transform;
+      background: #000;
+    }
+
+    /* content wrapper – each slide has text + background image layer (Apple style) */
+    .slide-content {
+      text-align: center;
+      z-index: 2;
+      max-width: 90%;
+      padding: 0 24px;
+      transform: translateY(2%);
+      opacity: 0;
+      animation: fadeInUp 0.85s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation-delay: 0.2s;
+    }
+
+    /* staggered fade & slight movement for elegance */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* typography matching Apple's large hero headlines */
+    .slide-title {
+      font-size: clamp(2rem, 8vw, 5.5rem);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      background: linear-gradient(135deg, #ffffff 0%, #e8e8ed 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .slide-subtitle {
+      font-size: clamp(1.1rem, 4vw, 1.75rem);
+      font-weight: 400;
+      color: #f5f5f7;
+      margin-bottom: 2rem;
+      opacity: 0.85;
+      letter-spacing: -0.003em;
+    }
+
+    .slide-link {
+      display: inline-block;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #2997ff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(41,151,255,0.4);
+      transition: border-color 0.2s, transform 0.2s;
+      padding-bottom: 2px;
+    }
+
+    .slide-link:hover {
+      border-bottom-color: #2997ff;
+      transform: scale(1.02);
+    }
+
+    /* each slide background image – full bleed, Apple-like parallax */
+    .slide-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      will-change: transform;
+      z-index: 1;
+    }
+
+    /* subtle dark overlay to make text pop like Apple does on some slides */
+    .slide-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* specific slide backgrounds (high quality, inspired by Apple products) */
+    .slide-1 .slide-bg {
+      background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=2070&auto=format'); /* MacBook + modern vibe */
+      background-position: center 20%;
+    }
+    .slide-2 .slide-bg {
+      background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1591337676887-a217a6970a8a?q=80&w=2080&auto=format'); /* iPhone family */
+      background-position: center 30%;
+    }
+    .slide-3 .slide-bg {
+      background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=2064&auto=format'); /* Apple Watch */
+      background-position: center 25%;
+    }
+    .slide-4 .slide-bg {
+      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?q=80&w=2070&auto=format'); /* iPad + creativity */
+      background-position: center 35%;
+    }
+
+    /* ---------- NAVIGATION DOTS (modern minimal) ---------- */
+    .carousel-nav {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      z-index: 20;
+      padding: 12px 20px;
+      backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.3);
+      border-radius: 40px;
+      width: fit-content;
+      margin: 0 auto;
+      pointer-events: auto;
+      transition: opacity 0.3s;
+    }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: none;
+      padding: 0;
+      outline: none;
+      transform: scale(1);
+    }
+
+    .nav-dot.active {
+      background-color: #ffffff;
+      width: 28px;
+      border-radius: 12px;
+      transform: scale(1);
+      box-shadow: 0 0 6px rgba(255,255,255,0.6);
+    }
+
+    /* Apple-style subtle arrow controls (optional, enhances UX) */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 20;
+      transition: background 0.2s, transform 0.2s;
+      border: 0.5px solid rgba(255,255,255,0.3);
+      font-size: 28px;
+      font-weight: 300;
+      color: white;
+      user-select: none;
+    }
+
+    .carousel-arrow:hover {
+      background: rgba(255,255,255,0.35);
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .arrow-left {
+      left: 20px;
+    }
+
+    .arrow-right {
+      right: 20px;
+    }
+
+    /* Hide arrows on small screens (optional but elegant) */
+    @media (max-width: 768px) {
+      .carousel-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+      }
+      .arrow-left { left: 12px; }
+      .arrow-right { right: 12px; }
+    }
+
+    /* When user is dragging, grab cursor active. Also avoid accidental dot clicks during scroll */
+    .no-transition {
+      scroll-behavior: auto !important;
+    }
+
+    /* accessibility & focus outlines */
+    .nav-dot:focus-visible, .carousel-arrow:focus-visible {
+      outline: 2px solid #2997ff;
+      outline-offset: 2px;
+    }
+
+    /* subtle parallax effect on the background when scrolling (Apple style depth) */
+    @media (hover: hover) and (pointer: fine) {
+      .carousel-track.scrolling .slide .slide-bg {
+        transition: transform 0.05s linear;
+      }
+    }
+
+    /* small fade effect for active slide - pure css highlight */
+    .slide {
+      transition: filter 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="carousel-container">
+  <div class="carousel-track" id="carouselTrack">
+    <!-- Slide 1 - iPhone 15 Pro style -->
+    <div class="slide slide-1" data-index="0">
+      <div class="slide-bg"></div>
+      <div class="slide-content">
+        <div class="slide-title">iPhone 15 Pro</div>
+        <div class="slide-subtitle">Titanium. So strong. So light. So Pro.</div>
+        <a href="#" class="slide-link">Learn more &nbsp;›</a>
+      </div>
+    </div>
+    <!-- Slide 2 - MacBook Air -->
+    <div class="slide slide-2" data-index="1">
+      <div class="slide-bg"></div>
+      <div class="slide-content">
+        <div class="slide-title">MacBook Air 15"</div>
+        <div class="slide-subtitle">Impressively big. Impossibly thin.</div>
+        <a href="#" class="slide-link">Learn more &nbsp;›</a>
+      </div>
+    </div>
+    <!-- Slide 3 - Apple Watch -->
+    <div class="slide slide-3" data-index="2">
+      <div class="slide-bg"></div>
+      <div class="slide-content">
+        <div class="slide-title">Apple Watch Series 9</div>
+        <div class="slide-subtitle">Smarter. Brighter. Mightier.</div>
+        <a href="#" class="slide-link">Learn more &nbsp;›</a>
+      </div>
+    </div>
+    <!-- Slide 4 - iPad Pro -->
+    <div class="slide slide-4" data-index="3">
+      <div class="slide-bg"></div>
+      <div class="slide-content">
+        <div class="slide-title">iPad Pro</div>
+        <div class="slide-subtitle">Supercharged by the M2 chip.</div>
+        <a href="#" class="slide-link">Learn more &nbsp;›</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom navigation dots -->
+  <div class="carousel-nav" id="carouselDots"></div>
+
+  <!-- Left & Right arrows for better recreation of apple.com slider -->
+  <div class="carousel-arrow arrow-left" id="prevBtn" aria-label="Previous slide">‹</div>
+  <div class="carousel-arrow arrow-right" id="nextBtn" aria-label="Next slide">›</div>
+</div>
+
+<script>
+  (function() {
+    // Apple.com style carousel: pure CSS scroll-snap with JavaScript for dot synchronization, arrow controls, and inertia-friendly UX.
+    // No external libraries — lightweight, modern, accessible.
+    const track = document.getElementById('carouselTrack');
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dotsContainer = document.getElementById('carouselDots');
+    const prevButton = document.getElementById('prevBtn');
+    const nextButton = document.getElementById('nextBtn');
+
+    let currentIndex = 0;
+    let isScrollingProgrammatically = false;
+    let debounceTimeout = null;
+    let scrollEndTimer = null;
+
+    // --- Create dots dynamically
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.classList.add('nav-dot');
+        if (idx === 0) dot.classList.add('active');
+        dot.setAttribute('data-index', idx);
+        dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goToSlide(idx);
+        });
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    // Update active dot based on current visible slide (intersection observer style but using scroll position)
+    function updateActiveDotFromScroll() {
+      if (isScrollingProgrammatically) return;
+      const containerRect = track.getBoundingClientRect();
+      const scrollLeft = track.scrollLeft;
+      let closestIndex = 0;
+      let minDistance = Infinity;
+      
+      slides.forEach((slide, idx) => {
+        const slideRect = slide.getBoundingClientRect();
+        const slideCenter = slideRect.left + slideRect.width / 2;
+        const viewportCenter = containerRect.left + containerRect.width / 2;
+        const distance = Math.abs(slideCenter - viewportCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = idx;
+        }
+      });
+      
+      // alternative: also use scrollLeft proportion but center logic is robust
+      if (closestIndex !== currentIndex) {
+        currentIndex = closestIndex;
+        updateDotsActive(currentIndex);
+        applyBackgroundParallaxEffect(); // subtle effect on scroll
+      }
+    }
+
+    function updateDotsActive(index) {
+      const dots = document.querySelectorAll('.nav-dot');
+      dots.forEach((dot, i) => {
+        if (i === index) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    // Smooth go to specific slide using scroll-snap (native browser handling)
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= slides.length) index = slides.length - 1;
+      if (index === currentIndex && Math.abs(track.scrollLeft - slides[index].offsetLeft) < 5) return;
+      
+      const targetSlide = slides[index];
+      if (!targetSlide) return;
+      
+      isScrollingProgrammatically = true;
+      track.scrollTo({
+        left: targetSlide.offsetLeft,
+        behavior: 'smooth'
+      });
+      
+      currentIndex = index;
+      updateDotsActive(currentIndex);
+      
+      // Reset the flag after smooth scroll finishes (with debounce)
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(() => {
+        isScrollingProgrammatically = false;
+        // After scroll, double-check the actual position for sync (edge cases)
+        updateActiveDotFromScroll();
+      }, 400);
+    }
+    
+    // Next / Previous
+    function nextSlide() {
+      let nextIdx = currentIndex + 1;
+      if (nextIdx >= slides.length) nextIdx = 0;   // infinite loop style, Apple often cycles
+      goToSlide(nextIdx);
+    }
+    
+    function prevSlide() {
+      let prevIdx = currentIndex - 1;
+      if (prevIdx < 0) prevIdx = slides.length - 1;
+      goToSlide(prevIdx);
+    }
+    
+    // Optional: subtle parallax on background images when scrolling (enhances depth)
+    function applyBackgroundParallaxEffect() {
+      // Apple-like: based on scroll position & slide offset, we add minimal transform to background
+      if (!track) return;
+      const scrollPos = track.scrollLeft;
+      slides.forEach((slide, idx) => {
+        const slideStart = slide.offsetLeft;
+        const slideWidth = slide.offsetWidth;
+        const relativePos = (scrollPos - slideStart) / slideWidth; // range -? to +?
+        const bgElement = slide.querySelector('.slide-bg');
+        if (bgElement) {
+          // subtle shift effect: background moves at different speed when scrolling (parallax)
+          // Limit to 3% shift max
+          const shiftX = Math.min(8, Math.max(-8, relativePos * 10));
+          if (Math.abs(shiftX) < 8) {
+            bgElement.style.transform = `translateX(${shiftX * 0.5}%) scale(1.02)`;
+          } else {
+            bgElement.style.transform = `translateX(0px) scale(1)`;
+          }
+        }
+      });
+    }
+    
+    // reset after scroll end: clean transform and sync
+    function onScrollEnd() {
+      // Reset any ongoing transform jitter: set to identity after smooth stop
+      slides.forEach(slide => {
+        const bg = slide.querySelector('.slide-bg');
+        if (bg) {
+          bg.style.transform = '';
+        }
+      });
+      updateActiveDotFromScroll();
+      // ensure active dot perfect sync
+      const scrollPos = track.scrollLeft;
+      let mostVisible = 0;
+      let maxVisibleArea = 0;
+      slides.forEach((slide, i) => {
+        const leftEdge = slide.offsetLeft;
+        const rightEdge = leftEdge + slide.offsetWidth;
+        const visibleLeft = Math.max(leftEdge, track.scrollLeft);
+        const visibleRight = Math.min(rightEdge, track.scrollLeft + track.clientWidth);
+        const visibleWidth = Math.max(0, visibleRight - visibleLeft);
+        if (visibleWidth > maxVisibleArea) {
+          maxVisibleArea = visibleWidth;
+          mostVisible = i;
+        }
+      });
+      if (mostVisible !== currentIndex) {
+        currentIndex = mostVisible;
+        updateDotsActive(currentIndex);
+      }
+      isScrollingProgrammatically = false;
+    }
+    
+    // throttle scroll events for performance & parallax update
+    let ticking = false;
+    function onScrollHandler() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          applyBackgroundParallaxEffect();
+          updateActiveDotFromScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(() => {
+        onScrollEnd();
+      }, 120);
+    }
+    
+    // attach event listeners (native scroll)
+    track.addEventListener('scroll', onScrollHandler);
+    
+    // If the user clicks on arrow or dot, we cancel any ongoing end timer and manually go to slide
+    function safeGoToSlide(index) {
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      goToSlide(index);
+    }
+    
+    // Reassign for arrow buttons
+    prevButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      prevSlide();
+    });
+    nextButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      nextSlide();
+    });
+    
+    // Keyboard accessibility: left/right arrows
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextSlide();
+      }
+    });
+    
+    // Recalculate on window resize to avoid snapping issues (ensures correct offset)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        // re-sync current slide after resize (maintain index)
+        const targetSlide = slides[currentIndex];
+        if (targetSlide) {
+          track.scrollLeft = targetSlide.offsetLeft;
+        }
+        updateActiveDotFromScroll();
+        applyBackgroundParallaxEffect();
+      }, 100);
+    });
+    
+    // Initial dot build and verify first slide active
+    buildDots();
+    // set initial active dot properly & initial background effect
+    setTimeout(() => {
+      // ensure first slide fully rendered
+      const firstSlide = slides[0];
+      if (firstSlide) track.scrollLeft = firstSlide.offsetLeft;
+      updateActiveDotFromScroll();
+      applyBackgroundParallaxEffect();
+    }, 50);
+    
+    // Add grab class on track when mouse down/up (UX)
+    track.addEventListener('mousedown', () => {
+      track.style.cursor = 'grabbing';
+    });
+    track.addEventListener('mouseup', () => {
+      track.style.cursor = 'grab';
+    });
+    track.addEventListener('mouseleave', () => {
+      track.style.cursor = 'grab';
+    });
+    
+    // Add touch handling for better mobile feel
+    let startX, startScrollLeft;
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].pageX;
+      startScrollLeft = track.scrollLeft;
+    });
+    // no extra logic needed, native scroll works perfectly, just for cursor consistency.
+  })();
+</script>
+</body>
+</html>

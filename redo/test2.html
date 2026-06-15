@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Apple‑Style Dual Carousels | Pure CSS Snap & Peek</title>
+  <style>
+    /* ---------- RESET & GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      overflow-x: hidden;
+    }
+
+    /* smooth container for both sections */
+    .carousel-section {
+      margin: 3rem 0 5rem 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin: 0 2rem 1.5rem 2rem;
+      color: #1d1d1f;
+    }
+
+    /* ---------- 1. HERO CAROUSEL (full width, edge peek, lock snap) ---------- */
+    .hero-carousel {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      /* edges will show next/previous cards thanks to padding + negative margins trick */
+    }
+
+    .hero-track {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 0 12%;        /* key: creates space on sides to reveal next/prev edges */
+      scrollbar-width: none; /* hide scrollbar, keep functionality */
+      -ms-overflow-style: none;
+      cursor: grab;
+      scroll-snap-stop: always;
+    }
+
+    .hero-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hero-track:active {
+      cursor: grabbing;
+    }
+
+    /* each hero card — width relative, so we see part of neighbors */
+    .hero-card {
+      flex: 0 0 80%;          /* 80% width → 10% gap on each side, revealing next/prev edges */
+      scroll-snap-align: start;
+      background: #fff;
+      border-radius: 2.5rem;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, filter 0.2s ease;
+      will-change: transform;
+      position: relative;
+      aspect-ratio: 16 / 9;    /* consistent cinematic ratio */
+    }
+
+    /* Apple-style gradient backgrounds & content */
+    .hero-card:nth-child(1) { background: linear-gradient(135deg, #1e1e2f, #2a2a40); }
+    .hero-card:nth-child(2) { background: linear-gradient(135deg, #101010, #2c2c2e); }
+    .hero-card:nth-child(3) { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+    .hero-card:nth-child(4) { background: linear-gradient(135deg, #2b1e2f, #1a1a2c); }
+    .hero-card:nth-child(5) { background: linear-gradient(135deg, #0f2027, #203a43); }
+
+    .hero-content {
+      padding: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      width: fit-content;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-link {
+      color: #2997ff;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    /* 3d subtle lift on hover */
+    .hero-card:hover {
+      transform: scale(1.01);
+      transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    /* ----- HERO DOTS (navigation) ----- */
+    .hero-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.8rem;
+    }
+
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 20px;
+      background-color: #aaa;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .hero-dot.active {
+      background-color: #1d1d1f;
+      width: 28px;
+    }
+
+    /* ----- HERO ARROWS (nice UI) ----- */
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
+      border-radius: 60px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 28px;
+      font-weight: 300;
+      color: #1d1d1f;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+      border: 0.5px solid rgba(0,0,0,0.05);
+    }
+
+    .hero-arrow:hover {
+      background: white;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .hero-arrow-left {
+      left: 2%;
+    }
+
+    .hero-arrow-right {
+      right: 2%;
+    }
+
+    /* ---------- 2. SECONDARY CAROUSEL (3 items visible at a time, lock snap, edges show partial) ---------- */
+    .featured-carousel {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      margin: 1rem 0 3rem 0;
+    }
+
+    .featured-track {
+      display: flex;
+      gap: 1.2rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 0 4%;          /* smaller padding, so we see about 0.5 card on sides */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+      scroll-snap-stop: always;
+    }
+
+    .featured-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .featured-track:active {
+      cursor: grabbing;
+    }
+
+    /* 3 cards visible — each card ~32% so that edges of adjacent cards peek */
+    .featured-card {
+      flex: 0 0 calc(33.333% - 0.8rem);  /* ~31.5% width, plus gap reveals neighbors */
+      scroll-snap-align: start;
+      background: #ffffff;
+      border-radius: 1.8rem;
+      overflow: hidden;
+      box-shadow: 0 12px 25px -8px rgba(0, 0, 0, 0.1);
+      transition: all 0.25s ease;
+      backdrop-filter: blur(0);
+      border: 0.5px solid rgba(0,0,0,0.05);
+    }
+
+    /* for smaller screens, show 2 cards and peek next (adaptive) */
+    @media (max-width: 768px) {
+      .featured-card {
+        flex: 0 0 calc(50% - 0.6rem);
+      }
+      .hero-track {
+        padding: 0 6%;
+      }
+      .hero-card {
+        flex: 0 0 88%;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .featured-card {
+        flex: 0 0 calc(80% - 0.6rem);
+      }
+    }
+
+    .featured-img {
+      background: #e8e8ed;
+      height: 180px;
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.4s ease;
+    }
+
+    .featured-card:hover .featured-img {
+      transform: scale(1.02);
+    }
+
+    .featured-info {
+      padding: 1.2rem;
+    }
+
+    .featured-title {
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .featured-price {
+      color: #6e6e73;
+      font-size: 0.9rem;
+    }
+
+    /* decorative images for featured cards */
+    .img-1 { background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .img-2 { background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .img-3 { background-image: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .img-4 { background-image: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .img-5 { background-image: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .img-6 { background-image: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+
+    /* featured navigation */
+    .featured-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.65rem;
+      margin-top: 1.8rem;
+    }
+
+    .featured-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 20px;
+      background-color: #b0b0b8;
+      cursor: pointer;
+      transition: 0.2s;
+      border: none;
+    }
+
+    .featured-dot.active {
+      background-color: #1d1d1f;
+      width: 26px;
+    }
+
+    .featured-arrow {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 60px;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: white;
+      font-size: 24px;
+      z-index: 10;
+      transition: all 0.2s;
+    }
+
+    .featured-arrow-left {
+      left: 0.8rem;
+    }
+
+    .featured-arrow-right {
+      right: 0.8rem;
+    }
+
+    .featured-arrow:hover {
+      background: #000000aa;
+    }
+
+    /* extra apple-like spacing */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #86868b;
+      border-top: 1px solid #d2d2d7;
+      margin-top: 2rem;
+    }
+
+    /* lock snap + smooth drag */
+    .hero-track, .featured-track {
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- SECTION 1: HERO CAROUSEL (Full width, edges of next/prev cards visible) -->
+  <div class="carousel-section">
+    <h2 class="section-title">Latest arrivals.</h2>
+    <div class="hero-carousel">
+      <div class="hero-track" id="heroTrack">
+        <div class="hero-card" data-index="0">
+          <div class="hero-content">
+            <div class="hero-badge">New</div>
+            <div class="hero-title">iPhone 15 Pro</div>
+            <div class="hero-sub">Titanium. A17 Pro. Game‑changing.</div>
+            <a href="#" class="hero-link">Learn more ›</a>
+          </div>
+        </div>
+        <div class="hero-card" data-index="1">
+          <div class="hero-content">
+            <div class="hero-badge">M3 chip</div>
+            <div class="hero-title">MacBook Pro</div>
+            <div class="hero-sub">Supercharged for pros.</div>
+            <a href="#" class="hero-link">Learn more ›</a>
+          </div>
+        </div>
+        <div class="hero-card" data-index="2">
+          <div class="hero-content">
+            <div class="hero-badge">Double tap</div>
+            <div class="hero-title">Apple Watch S9</div>
+            <div class="hero-sub">Smarter. Brighter. Mightier.</div>
+            <a href="#" class="hero-link">Learn more ›</a>
+          </div>
+        </div>
+        <div class="hero-card" data-index="3">
+          <div class="hero-content">
+            <div class="hero-badge">iPadOS</div>
+            <div class="hero-title">iPad Pro</div>
+            <div class="hero-sub">Your next computer is not a computer.</div>
+            <a href="#" class="hero-link">Learn more ›</a>
+          </div>
+        </div>
+        <div class="hero-card" data-index="4">
+          <div class="hero-content">
+            <div class="hero-badge">AirPods</div>
+            <div class="hero-title">AirPods Pro 2</div>
+            <div class="hero-sub">Adaptive Audio. Magical sound.</div>
+            <a href="#" class="hero-link">Learn more ›</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-dots" id="heroDots"></div>
+      <div class="hero-arrow hero-arrow-left" id="heroPrev">‹</div>
+      <div class="hero-arrow hero-arrow-right" id="heroNext">›</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: SMALLER CAROUSEL (showing 3 cards at a time, with partial edges visible) -->
+  <div class="carousel-section">
+    <h2 class="section-title">Shop accessories. </h2>
+    <div class="featured-carousel">
+      <div class="featured-track" id="featuredTrack">
+        <div class="featured-card">
+          <div class="featured-img img-1"></div>
+          <div class="featured-info">
+            <div class="featured-title">MagSafe Charger</div>
+            <div class="featured-price">$39.00</div>
+          </div>
+        </div>
+        <div class="featured-card">
+          <div class="featured-img img-2"></div>
+          <div class="featured-info">
+            <div class="featured-title">FineWoven Case</div>
+            <div class="featured-price">$59.00</div>
+          </div>
+        </div>
+        <div class="featured-card">
+          <div class="featured-img img-3"></div>
+          <div class="featured-info">
+            <div class="featured-title">AirTag 4-pack</div>
+            <div class="featured-price">$99.00</div>
+          </div>
+        </div>
+        <div class="featured-card">
+          <div class="featured-img img-4"></div>
+          <div class="featured-info">
+            <div class="featured-title">Magic Keyboard</div>
+            <div class="featured-price">$299.00</div>
+          </div>
+        </div>
+        <div class="featured-card">
+          <div class="featured-img img-5"></div>
+          <div class="featured-info">
+            <div class="featured-title">Apple Pencil (USB-C)</div>
+            <div class="featured-price">$79.00</div>
+          </div>
+        </div>
+        <div class="featured-card">
+          <div class="featured-img img-6"></div>
+          <div class="featured-info">
+            <div class="featured-title">HomePod mini</div>
+            <div class="featured-price">$99.00</div>
+          </div>
+        </div>
+      </div>
+      <div class="featured-dots" id="featuredDots"></div>
+      <div class="featured-arrow featured-arrow-left" id="featuredPrev">‹</div>
+      <div class="featured-arrow featured-arrow-right" id="featuredNext">›</div>
+    </div>
+  </div>
+  <footer>Snap scrolling · Edge peeking · Pure CSS + minimal JS for navigation & dots</footer>
+</div>
+
+<script>
+  (function() {
+    // ---------- UTILITY: Carousel controller with full scroll-snap, dots, arrows ----------
+    function initCarousel({
+      trackId,
+      dotContainerId,
+      prevBtnId,
+      nextBtnId,
+      slideSelector,
+      getSlideIndex = (slide) => parseInt(slide.getAttribute('data-index') || slide.dataset.index, 10) || Array.from(slides).indexOf(slide),
+      onScrollUpdate = null,
+      isHero = true
+    }) {
+      const track = document.getElementById(trackId);
+      if (!track) return;
+      const slides = Array.from(track.querySelectorAll(slideSelector));
+      if (slides.length === 0) return;
+      
+      const dotsContainer = document.getElementById(dotContainerId);
+      const prevBtn = document.getElementById(prevBtnId);
+      const nextBtn = document.getElementById(nextBtnId);
+      
+      let currentIndex = 0;
+      let isProgrammaticScroll = false;
+      let scrollEndTimer = null;
+      let resizeThrottle = null;
+      
+      // build dots
+      function buildDots() {
+        if (!dotsContainer) return;
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, idx) => {
+          const dot = document.createElement('button');
+          dot.classList.add(isHero ? 'hero-dot' : 'featured-dot');
+          if (idx === 0) dot.classList.add('active');
+          dot.setAttribute('data-index', idx);
+          dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+          dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            goToSlide(idx, true);
+          });
+          dotsContainer.appendChild(dot);
+        });
+      }
+      
+      function updateDotsActive(index) {
+        if (!dotsContainer) return;
+        const dots = dotsContainer.querySelectorAll('button');
+        dots.forEach((dot, i) => {
+          if (i === index) dot.classList.add('active');
+          else dot.classList.remove('active');
+        });
+      }
+      
+      // get the most visible slide based on scrollLeft & bounding rect
+      function getCurrentVisibleIndex() {
+        const containerRect = track.getBoundingClientRect();
+        let bestIndex = 0;
+        let maxVisibleRatio = 0;
+        slides.forEach((slide, idx) => {
+          const slideRect = slide.getBoundingClientRect();
+          const visibleLeft = Math.max(slideRect.left, containerRect.left);
+          const visibleRight = Math.min(slideRect.right, containerRect.right);
+          const visibleWidth = Math.max(0, visibleRight - visibleLeft);
+          const totalWidth = slideRect.width;
+          const ratio = totalWidth > 0 ? visibleWidth / totalWidth : 0;
+          if (ratio > maxVisibleRatio) {
+            maxVisibleRatio = ratio;
+            bestIndex = idx;
+          }
+        });
+        return bestIndex;
+      }
+      
+      function syncFromScroll() {
+        if (isProgrammaticScroll) return;
+        const visibleIdx = getCurrentVisibleIndex();
+        if (visibleIdx !== currentIndex) {
+          currentIndex = visibleIdx;
+          updateDotsActive(currentIndex);
+          if (onScrollUpdate) onScrollUpdate(currentIndex);
+        }
+      }
+      
+      function goToSlide(index, smooth = true) {
+        if (index < 0) index = 0;
+        if (index >= slides.length) index = slides.length - 1;
+        if (index === currentIndex && Math.abs(track.scrollLeft - slides[index].offsetLeft) < 2) return;
+        
+        isProgrammaticScroll = true;
+        currentIndex = index;
+        const targetSlide = slides[index];
+        if (targetSlide) {
+          track.scrollTo({
+            left: targetSlide.offsetLeft,
+            behavior: smooth ? 'smooth' : 'auto'
+          });
+        }
+        updateDotsActive(currentIndex);
+        if (onScrollUpdate) onScrollUpdate(currentIndex);
+        
+        if (scrollEndTimer) clearTimeout(scrollEndTimer);
+        scrollEndTimer = setTimeout(() => {
+          isProgrammaticScroll = false;
+          // final sync after scroll finishes
+          const finalIdx = getCurrentVisibleIndex();
+          if (finalIdx !== currentIndex) {
+            currentIndex = finalIdx;
+            updateDotsActive(currentIndex);
+            if (onScrollUpdate) onScrollUpdate(currentIndex);
+          }
+        }, 300);
+      }
+      
+      function next() {
+        let nextIdx = currentIndex + 1;
+        if (nextIdx >= slides.length) nextIdx = 0;   // infinite loop feeling
+        goToSlide(nextIdx, true);
+      }
+      
+      function prev() {
+        let prevIdx = currentIndex - 1;
+        if (prevIdx < 0) prevIdx = slides.length - 1;
+        goToSlide(prevIdx, true);
+      }
+      
+      // event binding
+      function onScrollHandler() {
+        if (!isProgrammaticScroll) {
+          syncFromScroll();
+        }
+        if (scrollEndTimer) clearTimeout(scrollEndTimer);
+        scrollEndTimer = setTimeout(() => {
+          if (!isProgrammaticScroll) {
+            const newIdx = getCurrentVisibleIndex();
+            if (newIdx !== currentIndex) {
+              currentIndex = newIdx;
+              updateDotsActive(currentIndex);
+              if (onScrollUpdate) onScrollUpdate(currentIndex);
+            }
+          }
+          isProgrammaticScroll = false;
+        }, 120);
+      }
+      
+      track.addEventListener('scroll', onScrollHandler);
+      if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); prev(); });
+      if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); next(); });
+      
+      window.addEventListener('resize', () => {
+        if (resizeThrottle) clearTimeout(resizeThrottle);
+        resizeThrottle = setTimeout(() => {
+          // re-sync current slide after resize
+          const newIdx = getCurrentVisibleIndex();
+          if (newIdx !== currentIndex) {
+            currentIndex = newIdx;
+            updateDotsActive(currentIndex);
+            if (onScrollUpdate) onScrollUpdate(currentIndex);
+          }
+          // ensure scroll position matches index (fix layout shifts)
+          if (slides[currentIndex]) {
+            track.scrollLeft = slides[currentIndex].offsetLeft;
+          }
+        }, 80);
+      });
+      
+      // initial set
+      buildDots();
+      setTimeout(() => {
+        // ensure first slide is fully aligned
+        if (slides[0]) track.scrollLeft = slides[0].offsetLeft;
+        const initIdx = getCurrentVisibleIndex();
+        currentIndex = initIdx;
+        updateDotsActive(currentIndex);
+        if (onScrollUpdate) onScrollUpdate(currentIndex);
+      }, 20);
+      
+      // add grab cursors
+      track.addEventListener('mousedown', () => track.style.cursor = 'grabbing');
+      track.addEventListener('mouseup', () => track.style.cursor = 'grab');
+      track.addEventListener('mouseleave', () => track.style.cursor = 'grab');
+      
+      return { goToSlide, next, prev, currentIndex: () => currentIndex };
+    }
+    
+    // Instantiate Hero Carousel (large, edge peek)
+    initCarousel({
+      trackId: 'heroTrack',
+      dotContainerId: 'heroDots',
+      prevBtnId: 'heroPrev',
+      nextBtnId: 'heroNext',
+      slideSelector: '.hero-card',
+      isHero: true,
+      onScrollUpdate: (idx) => { /* optional logging */ }
+    });
+    
+    // Instantiate Featured Carousel (showing 3 cards with partial sides)
+    initCarousel({
+      trackId: 'featuredTrack',
+      dotContainerId: 'featuredDots',
+      prevBtnId: 'featuredPrev',
+      nextBtnId: 'featuredNext',
+      slideSelector: '.featured-card',
+      isHero: false,
+      onScrollUpdate: (idx) => { /* additional handler if needed */ }
+    });
+    
+    // additional micro-fix: ensure touch/mouse inertia not broken by programmatic flags
+    // enhance side-peek: by default padding on track already reveals edges 
+    // CSS handles the "edges of next and previous card to show on sides" requirement perfectly.
+    // Pure scroll-snap locking ensures each slide locks into place.
+    console.log("Dual carousels active: hero (edge peek) + featured (3 items visible, lock snap)");
+  })();
+</script>
+</body>
+</html>
