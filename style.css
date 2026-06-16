@@ -9,12 +9,17 @@ body {
     font-family: "Montserrat", sans-serif;
     /* font-size: 20px; */
     font-size: 17px;
+    /* font-size:  0.885vw; */
     line-height: 1.4705882353;
     font-weight: 400;
     letter-spacing: -0.022em;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
 }
 img {
-    max-width: 100%;
+    /* max-width: 100%; */
 }
 div {
     display: block;
@@ -44,7 +49,8 @@ p {
     width: 100%;
 }
 .inner-wrapper {
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     padding: 0 10px;
     margin: 0 auto;
 }
@@ -60,6 +66,8 @@ a {
     border-width: 0.666667px;
     color: #fff;
     font-size: 17px;
+    /* font-size: 0.885vw; */
+    font-weight: 600;
     letter-spacing: -0.374px;
     line-height: 20.0002px;
     padding: 11px 21px;
@@ -80,6 +88,7 @@ a {
 
 /* ── Shared dropdown styles ── */
 .nav-dropdown {
+    display: none;
     visibility: hidden;
     opacity: 0;
     position: absolute;
@@ -109,6 +118,7 @@ a {
 .header-wrapper:has(.accessories-item:hover) .accessories-dropdown,
 .header-wrapper:has(.support-item:hover) .support-dropdown,
 .nav-dropdown:hover {
+    display: block;
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
@@ -116,7 +126,8 @@ a {
 
 /* ── Dropdown inner grid ── */
 .dropdown-inner {
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px 10px 28px;
     display: grid;
@@ -333,7 +344,8 @@ body:has(.nav-dropdown:hover)::after {
     color: black;
     /* font-size: 35px; */
     font-weight: 600;
-    font-size: 56px;
+    /* font-size: 56px; */
+    font-size: 2vw;
     line-height: 1.0714285714;
     font-weight: 600;
     letter-spacing: -0.005em;
@@ -348,15 +360,18 @@ body:has(.nav-dropdown:hover)::after {
 }
 
 .typography-tile-headline {
-    font-size: 56px;
+    font-size: 40px;
+    /* font-size: 3.2vw; */
+    margin-bottom: 17px;
     line-height: 1.0714285714;
     font-weight: 600;
-    letter-spacing: -0.005em;
+    letter-spacing: -0.05em;
 }
 .typography-tile-subhead {
-    font-size: 28px;
+    font-size: 21px;
+    /* font-size: 1.4vw; */
     line-height: 1.1428571429;
-    font-weight: 400;
+    /* font-weight: 4   00; */
     letter-spacing: 0.007em;
 }
 
@@ -398,6 +413,7 @@ body:has(.nav-dropdown:hover)::after {
 }
 .section-promo .tile-subhead {
     margin-top: 3px;
+    font-weight: 600;
 }
 .section-promo .tile-headline {
     font-size: 40px;
@@ -470,7 +486,7 @@ body:has(.nav-dropdown:hover)::after {
     position: relative;
 }
 .media-gallery-headline {
-    font-size: 56px;
+    font-size: 5vw;
     /* line-height: 1.0714285714; */
     font-weight: 600;
     letter-spacing: -0.005em;
@@ -521,17 +537,22 @@ body:has(.nav-dropdown:hover)::after {
 }
 /* ========================= footer =================================== */
 .footer-wrapper {
+    box-sizing: border-box;
     background-color: #f5f5f7;
     color: black;
     font-size: 12px;
     padding: 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .footer-text {
     color: #515154;
 }
+
 .footer-nav {
     border-top: 2px solid #d2d2d7;
-
     display: flex;
     width: 100%;
 }
@@ -542,6 +563,7 @@ body:has(.nav-dropdown:hover)::after {
 .footer-nav-col ul li {
     list-style: none;
     padding: 5px 0;
+    overflow-wrap: break-word;
 }
 .footer-nav-col ul li a {
     text-decoration: none;
@@ -595,9 +617,98 @@ body:has(.nav-dropdown:hover)::after {
         flex-direction: column;
         align-items: center;
     }
+    .footer-nav-col {
+        flex: 1;
+        width: 100%;
+    }
+    #iphone-family {
+        background-image: url("images/small/hero_iphone_family__be5jkzxszb1e_small_2x.jpg");
+    }
+    #fathers-day {
+        background-image: url("images/small/hero_fd26__c9vr0hxu24eq_small_2x.jpg");
+    }
+    #college {
+        background-image: url("images/small/hero_college_students_2026__dzrtx52rt9aq_small_2x.jpg");
+    }
+    #macbook-air-m5 {
+        background-image: url("images/small/promo_macbook_air_m5__e5xk2yysqiie_small_2x.jpg");
+    }
+    #ipad-air {
+        background-image: url("images/small/promo_ipad_air_m4__bgcv7t286k8y_small_2x.jpg");
+    }
+    #macbook-pro {
+        color: #fff;
+        background-image: url("images/small/promo_macbook_pro__c9td9w1mc8ia_small_2x.jpg");
+    }
+    #macbook-pro h3 {
+        color: #fff;
+    }
+    #apple-watch-series-11 {
+        background-image: url("images/small/promo_apple_watch_series_11__gnlwqxe1jlu2_small_2x.jpg");
+    }
+    #apple-card-airpods {
+        background-image: url("images/");
+    }
+    #iphone-tradein {
+        background-image: url("images/small/promo_iphone_tradein__e4hrjxmgmf0i_small_2x.jpg");
+    }
 }
-@media (min-width: 1069px) {
+@media (max-width: 768px) {
+    .store-item,
+    .mac-item,
+    .ipad-item,
+    .iphone-item,
+    .watch-item,
+    .vision-item,
+    .airpods-item,
+    .tv-item,
+    .entertainment-item,
+    .accesories-item,
+    .support-item {
+        display: none;
+    }
+    .section-promo {
+        display: flex;
+        flex-direction: column;
+
+        padding-left: 0;
+        padding-right: 0;
+        /* flex-wrap: wrap; */
+    }
+    /* #iphone-family {
+        background-image: url("images/medium/hero_iphone_family__be5jkzxszb1e_mediumtall_2x.jpg");
+    } */
+    #fathers-day {
+        background-image: url("images/medium/hero_fd26__c9vr0hxu24eq_medium_2x.jpg");
+    }
+    #college {
+        background-image: url("images/medium/hero_college_students_2026__dzrtx52rt9aq_mediumtall_2x.jpg");
+    }
+    #macbook-air-m5 {
+        background-image: url("images/medium/promo_macbook_air_m5__e5xk2yysqiie_medium_2x.jpg");
+    }
+    #ipad-air {
+        background-image: url("images/medium/promo_ipad_air_m4__bgcv7t286k8y_medium_2x.jpg");
+    }
+    #macbook-pro {
+        color: #fff;
+        background-image: url("images/medium/promo_macbook_pro__c9td9w1mc8ia_medium_2x.jpg");
+    }
+    #macbook-pro h3 {
+        color: #fff;
+    }
+    #apple-watch-series-11 {
+        background-image: url("images/medium/promo_apple_watch_series_11__gnlwqxe1jlu2_medium_2x.jpg");
+    }
+    #apple-card-airpods {
+        background-image: url("images/medium/promo_apple_card_airpods__cq0gu2a9hxkm_medium_2x.jpg");
+    }
+    #iphone-tradein {
+        background-image: url("images/medium/promo_iphone_tradein__e4hrjxmgmf0i_medium_2x.jpg");
+    }
+}
+/* @media (min-width: 1069px) {
     .section-promo .tile-wrapper {
         padding: 53px 0 60px;
     }
-}
+} */
