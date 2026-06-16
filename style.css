@@ -32,7 +32,6 @@ h3 {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
-
 }
 p {
     display: block;
@@ -40,7 +39,6 @@ p {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-
 }
 .main {
     width: 100%;
@@ -76,6 +74,184 @@ a {
 .button-secondary:hover {
     background-color: #0076df;
     color: #fff;
+}
+
+/* ====================== Dropdown ================================ */
+
+/* ── Shared dropdown styles ── */
+.nav-dropdown {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    z-index: 999;
+    transition:
+        opacity 0.15s ease,
+        visibility 0.15s ease;
+    padding-top: 20px;
+    pointer-events: none;
+}
+
+.header-wrapper:has(.store-item:hover) .store-dropdown,
+.header-wrapper:has(.mac-item:hover) .mac-dropdown,
+.header-wrapper:has(.ipad-item:hover) .ipad-dropdown,
+.header-wrapper:has(.iphone-item:hover) .iphone-dropdown,
+.header-wrapper:has(.watch-item:hover) .watch-dropdown,
+.header-wrapper:has(.vision-item:hover) .vision-dropdown,
+.header-wrapper:has(.airpods-item:hover) .airpods-dropdown,
+.header-wrapper:has(.tv-item:hover) .tv-dropdown,
+.header-wrapper:has(.entertainment-item:hover) .entertainment-dropdown,
+.header-wrapper:has(.accessories-item:hover) .accessories-dropdown,
+.header-wrapper:has(.support-item:hover) .support-dropdown,
+.nav-dropdown:hover {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ── Dropdown inner grid ── */
+.dropdown-inner {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px 10px 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 2rem;
+    align-items: start;
+}
+
+/* ── Column label (small grey heading) ── */
+.dropdown-col-label {
+    font-size: 12px;
+    color: #6e6e73;
+    font-weight: 400;
+    margin: 0 0 10px 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    display: block;
+}
+
+/* ── Big bold product name links (col 1) ── */
+.dropdown-big-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px 0;
+}
+
+.dropdown-big-links li {
+    margin-bottom: 4px;
+    opacity: 1 !important;
+    padding: 0;
+}
+
+.dropdown-big-links li a {
+    font-size: 21px;
+    font-weight: 600;
+    color: #1d1d1f;
+    text-decoration: none;
+    line-height: 1.3;
+}
+
+.dropdown-big-links li a:hover {
+    color: #0071e3;
+}
+
+/* ── Small links (col 2 & 3) ── */
+.dropdown-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-links li {
+    margin-bottom: 9px;
+    opacity: 1 !important;
+    padding: 0;
+    display: block;
+}
+
+.dropdown-links li a {
+    font-size: 13px;
+    color: #1d1d1f;
+    text-decoration: none;
+}
+
+.dropdown-links li a:hover {
+    color: #0071e3;
+}
+
+.dropdown-links li a.muted {
+    color: #6e6e73;
+}
+
+/* ── Small plain links below big list ── */
+.dropdown-small-extras {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
+}
+
+.dropdown-small-extras li {
+    margin-bottom: 6px;
+    opacity: 1 !important;
+    padding: 0;
+}
+
+.dropdown-small-extras li a {
+    font-size: 12px;
+    color: #0071e3;
+    text-decoration: none;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.dropdown-small-extras li a:hover {
+    text-decoration: underline;
+}
+
+/* ── Page dim overlay ── */
+body::after {
+    content: "";
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(17px);
+    z-index: 500;
+    pointer-events: none;
+}
+
+body:has(.store-item:hover)::after,
+body:has(.mac-item:hover)::after,
+body:has(.ipad-item:hover)::after,
+body:has(.iphone-item:hover)::after,
+body:has(.watch-item:hover)::after,
+body:has(.vision-item:hover)::after,
+body:has(.airpods-item:hover)::after,
+body:has(.tv-item:hover)::after,
+body:has(.entertainment-item:hover)::after,
+body:has(.accessories-item:hover)::after,
+body:has(.support-item:hover)::after,
+body:has(.nav-dropdown:hover)::after {
+    display: block;
+    animation: dimFadeIn 0.2s ease forwards;
+}
+
+@keyframes dimFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* ============================ nav ============================== */
@@ -352,7 +528,6 @@ a {
 }
 .footer-text {
     color: #515154;
-
 }
 .footer-nav {
     border-top: 2px solid #d2d2d7;
@@ -416,7 +591,7 @@ a {
         padding-right: max(12px, env(safe-area-inset-right) - 12px);
         /* flex-wrap: wrap; */
     }
-    .footer-nav{
+    .footer-nav {
         flex-direction: column;
         align-items: center;
     }
