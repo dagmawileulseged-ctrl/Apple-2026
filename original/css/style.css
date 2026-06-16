@@ -278,7 +278,7 @@ body:has(.nav-dropdown:hover)::after {
 /* Main */
 
 .main-highlight-wrapper {
-    background-image: url("/images/hero_iphone_family__be5jkzxszb1e_largetall_2x.jpg");
+    background-image: url("../images/hero_iphone_family__be5jkzxszb1e_largetall_2x.jpg");
     /* width: 100%; */
     background-size: cover;
     background-position: center;
@@ -343,7 +343,7 @@ body:has(.nav-dropdown:hover)::after {
 
 /* Second */
 .Second-highlight-wrapper {
-    background-image: url("/images/father.jpg");
+    background-image: url("../images/father.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -391,7 +391,7 @@ body:has(.nav-dropdown:hover)::after {
 /* Third */
 .highlight-wrapper-v2 {
     margin-top: 10px;
-    background-image: url("/images/college.jpg");
+    background-image: url("../images/college.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -419,7 +419,7 @@ body:has(.nav-dropdown:hover)::after {
     margin: 1% 0.5% 0% 1%;
 }
 .fourth-highlight-wrapper .left-side-wrapper {
-    background-image: url("/images/macbook.jpg");
+    background-image: url("../images/macbook.jpg");
     height: 395px;
 }
 .right-side-wrapper {
@@ -431,7 +431,7 @@ body:has(.nav-dropdown:hover)::after {
     margin: 1% 1% 0% 0.5%;
 }
 .fourth-highlight-wrapper .right-side-wrapper {
-    background-image: url("/images/ipad.jpg");
+    background-image: url("../images/ipad.jpg");
     height: 395px;
 }
 
@@ -492,11 +492,11 @@ body:has(.nav-dropdown:hover)::after {
     background: #fff;
 }
 .fifth-highlight-wrapper .left-side-wrapper {
-    background-image: url("/images/promo_macbook_pro__c9td9w1mc8ia_small_2x.jpg");
+    background-image: url("../images/promo_macbook_pro__c9td9w1mc8ia_small_2x.jpg");
     height: 395px;
 }
 .fifth-highlight-wrapper .right-side-wrapper {
-    background-image: url("/images/promo_apple_watch_series_11__gnlwqxe1jlu2_small_2x.jpg");
+    background-image: url("../images/promo_apple_watch_series_11__gnlwqxe1jlu2_small_2x.jpg");
     color: #fff;
     background-size: cover;
     background-position: center;
@@ -514,7 +514,7 @@ body:has(.nav-dropdown:hover)::after {
     background: #fff;
 }
 .fifth-highlight-wrapper-2 .left-side-wrapper-2 {
-    background-image: url("/images/Airpods.jpg");
+    background-image: url("../images/Airpods.jpg");
     height: 395px;
     background-position: cover;
     background-repeat: no-repeat;
@@ -524,7 +524,7 @@ body:has(.nav-dropdown:hover)::after {
     margin: 1% 0.5% 0% 1%;
 }
 .fifth-highlight-wrapper-2 .right-side-wrapper-2 {
-    background-image: url("/images/promo_iphone_tradein__bugw15ka691e_medium_2x.jpg");
+    background-image: url("../images/promo_iphone_tradein__bugw15ka691e_medium_2x.jpg");
     height: 395px;
     background-position: center;
     background-repeat: no-repeat;
