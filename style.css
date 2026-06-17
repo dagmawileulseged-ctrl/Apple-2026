@@ -47,6 +47,7 @@ p {
 }
 .main {
     width: 100%;
+    padding: 0;
 }
 .inner-wrapper {
     width: 100%;
@@ -94,7 +95,7 @@ a {
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.72);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     z-index: 999;
@@ -482,7 +483,7 @@ body:has(.nav-dropdown:hover)::after {
 
 /* ======================= entertainment ======================== */
 .section .endless-entertainment {
-    margin-bottom: 0;
+    margin: 0;
     padding: 53px 0 0;
     background-color: #f5f5f7;
     display: flex;
@@ -529,7 +530,7 @@ body:has(.nav-dropdown:hover)::after {
     /* background: #ffffff; */
     /* border-radius: 2rem; */
     overflow: hidden;
-    box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25); */
     transition:
         transform 0.25s ease,
         filter 0.2s;
@@ -541,7 +542,7 @@ body:has(.nav-dropdown:hover)::after {
     width: 1250px;
     /* height: auto;
     width: auto; */
-    background-color: rgb(101, 105, 103);
+    /* background-color: rgb(101, 105, 103); */
     margin-bottom: 20px;
     /* background-size: cover;
     background-position: center;
@@ -617,7 +618,7 @@ body:has(.nav-dropdown:hover)::after {
 }
 /* ========================= footer =================================== */
 .footer-wrapper {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     background-color: #f5f5f7;
     color: black;
     font-size: 12px;
