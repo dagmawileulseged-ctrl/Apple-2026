@@ -7,9 +7,7 @@
 
 body {
     font-family: "Montserrat", sans-serif;
-    /* font-size: 20px; */
     font-size: 17px;
-    /* font-size:  0.885vw; */
     line-height: 1.4705882353;
     font-weight: 400;
     letter-spacing: -0.022em;
@@ -297,9 +295,17 @@ body:has(.nav-dropdown:hover)::after {
     font-size: 12px;
     text-decoration: none;
 }
-.store-item, .mac-item, .ipad-item, .iphone-item,
-.watch-item, .vision-item, .airpods-item,
-.tv-item, .entertainment-item, .accesories-item, .support-item {
+.store-item,
+.mac-item,
+.ipad-item,
+.iphone-item,
+.watch-item,
+.vision-item,
+.airpods-item,
+.tv-item,
+.entertainment-item,
+.accesories-item,
+.support-item {
     position: static;
     padding-bottom: 20px;
     margin-bottom: -20px;
@@ -581,7 +587,7 @@ body:has(.nav-dropdown:hover)::after {
     justify-content: center;
     background-color: rgb(101, 105, 103);
 }
-
+/* =============================== gallery content============================ */
 .media-gallery-contents {
     position: absolute;
     /* top: 0; */
@@ -612,10 +618,24 @@ body:has(.nav-dropdown:hover)::after {
     justify-content: space-between;
     padding: 20px;
 }
+/* .tv-media-gallery .media-gallery-top-content {
+    display: none;
+} */
 .tv-media-gallery .media-gallery-bottom-content {
     flex-direction: row-reverse;
     justify-content: start;
+    gap: 20px;
 }
+.tv-media-gallery .media-gallery-contents {
+    justify-content: end;
+}
+
+.media-gallery-content-button {
+    background-color: #ffffff;
+    border-color: #0000;
+    color: #000000;
+}
+
 /* ========================= footer =================================== */
 .footer-wrapper {
     /* box-sizing: border-box; */
@@ -750,10 +770,15 @@ body:has(.nav-dropdown:hover)::after {
     }
     .tv-media-gallery .media-gallery-bottom-content {
         flex-direction: column;
+        gap: 10px;
         /* justify-content: space-between; */
         /* padding: 20px; */
     }
+    .tv-media-gallery .media-gallery-top-content {
+    display: block;
 }
+}
+
 @media (max-width: 768px) {
     .store-item,
     .mac-item,
@@ -764,7 +789,7 @@ body:has(.nav-dropdown:hover)::after {
     .airpods-item,
     .tv-item,
     .entertainment-item,
-    .accesories-item,
+    .accessories-item,
     .support-item {
         display: none;
     }
