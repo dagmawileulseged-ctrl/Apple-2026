@@ -88,7 +88,6 @@ a {
 
 /* ── Shared dropdown styles ── */
 .nav-dropdown {
-    display: none;
     visibility: hidden;
     opacity: 0;
     position: absolute;
@@ -118,7 +117,6 @@ a {
 .header-wrapper:has(.accessories-item:hover) .accessories-dropdown,
 .header-wrapper:has(.support-item:hover) .support-dropdown,
 .nav-dropdown:hover {
-    display: block;
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
@@ -297,6 +295,13 @@ body:has(.nav-dropdown:hover)::after {
     width: 100%;
     font-size: 12px;
     text-decoration: none;
+}
+.store-item, .mac-item, .ipad-item, .iphone-item,
+.watch-item, .vision-item, .airpods-item,
+.tv-item, .entertainment-item, .accesories-item, .support-item {
+    position: static;
+    padding-bottom: 20px;
+    margin-bottom: -20px;
 }
 .nav-icons {
     display: flex;
