@@ -690,12 +690,83 @@ body:has(.nav-dropdown:hover)::after {
     text-decoration: underline;
 }
 /* ========================== mobile ============================= */
+@media (max-width: 768px) {
+    .store-item,
+    .mac-item,
+    .ipad-item,
+    .iphone-item,
+    .watch-item,
+    .vision-item,
+    .airpods-item,
+    .tv-item,
+    .entertainment-item,
+    .accessories-item,
+    .support-item {
+        display: none;
+    }
+    .section-promo {
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .footer-contact {
+        display: flex;
+    }
+    .footer-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-nav-col {
+        flex: 1;
+        width: 100%;
+    }
+    .footer-copyright {
+        flex-direction: column-reverse;
+    }
+    #iphone-family {
+        background-image: url("images/medium/hero_iphone_family__be5jkzxszb1e_mediumtall_2x.jpg");
+    }
+    #fathers-day {
+        background-image: url("images/medium/hero_fd26__c9vr0hxu24eq_medium_2x.jpg");
+    }
+    #college {
+        background-image: url("images/medium/hero_college_students_2026__dzrtx52rt9aq_mediumtall_2x.jpg");
+    }
+    #macbook-air-m5 {
+        background-image: url("images/medium/promo_macbook_air_m5__e5xk2yysqiie_medium_2x.jpg");
+    }
+    #ipad-air {
+        background-image: url("images/medium/promo_ipad_air_m4__bgcv7t286k8y_medium_2x.jpg");
+    }
+    #macbook-pro {
+        color: #fff;
+        background-image: url("images/medium/promo_macbook_pro__c9td9w1mc8ia_medium_2x.jpg");
+    }
+    #macbook-pro h3 {
+        color: #fff;
+    }
+    #apple-watch-series-11 {
+        background-image: url("images/medium/promo_apple_watch_series_11__gnlwqxe1jlu2_medium_2x.jpg");
+    }
+    #apple-card-airpods {
+        background-image: url("images/medium/promo_apple_card_airpods__cq0gu2a9hxkm_medium_2x.jpg");
+    }
+    #iphone-tradein {
+        background-image: url("images/medium/promo_iphone_tradein__e4hrjxmgmf0i_medium_2x.jpg");
+    }
+}
+
+
+
 @media (max-width: 480px) {
     .section-promo {
         display: flex;
         flex-direction: column;
         padding-left: max(12px, env(safe-area-inset-left) - 12px);
         padding-right: max(12px, env(safe-area-inset-right) - 12px);
+        padding: 0;
     }
     .footer-nav {
         flex-direction: column;
@@ -749,76 +820,3 @@ body:has(.nav-dropdown:hover)::after {
     }
 }
 
-@media (max-width: 768px) {
-    .store-item,
-    .mac-item,
-    .ipad-item,
-    .iphone-item,
-    .watch-item,
-    .vision-item,
-    .airpods-item,
-    .tv-item,
-    .entertainment-item,
-    .accessories-item,
-    .support-item {
-        display: none;
-    }
-    .section-promo {
-        display: flex;
-        flex-direction: column;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .footer-contact {
-        display: flex;
-    }
-    .footer-nav {
-        flex-direction: column;
-        align-items: center;
-    }
-    .footer-nav-col {
-        flex: 1;
-        width: 100%;
-    }
-    .footer-copyright {
-        flex-direction: column-reverse;
-    }
-    /* #iphone-family {
-        background-image: url("images/medium/hero_iphone_family__be5jkzxszb1e_mediumtall_2x.jpg");
-    } */
-    /* #fathers-day {
-        background-image: url("images/medium/hero_fd26__c9vr0hxu24eq_medium_2x.jpg");
-    } */
-    #college {
-        background-image: url("images/medium/hero_college_students_2026__dzrtx52rt9aq_mediumtall_2x.jpg");
-    }
-    #macbook-air-m5 {
-        background-image: url("images/medium/promo_macbook_air_m5__e5xk2yysqiie_medium_2x.jpg");
-    }
-    #ipad-air {
-        background-image: url("images/medium/promo_ipad_air_m4__bgcv7t286k8y_medium_2x.jpg");
-    }
-    #macbook-pro {
-        color: #fff;
-        background-image: url("images/medium/promo_macbook_pro__c9td9w1mc8ia_medium_2x.jpg");
-    }
-    #macbook-pro h3 {
-        color: #fff;
-    }
-    #apple-watch-series-11 {
-        background-image: url("images/medium/promo_apple_watch_series_11__gnlwqxe1jlu2_medium_2x.jpg");
-    }
-    #apple-card-airpods {
-        background-image: url("images/medium/promo_apple_card_airpods__cq0gu2a9hxkm_medium_2x.jpg");
-    }
-    #iphone-tradein {
-        background-image: url("images/medium/promo_iphone_tradein__e4hrjxmgmf0i_medium_2x.jpg");
-    }
-}
-
-@media (min-width: 1069px) {
-    .section-promo .tile-wrapper {
-        padding: 53px 0 60px;
-    }
-}
