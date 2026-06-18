@@ -5,6 +5,7 @@
     /* outline: 1px solid black; */
 }
 
+/* =================== General ======================= */
 body {
     width: 100%;
     display: flex;
@@ -20,37 +21,25 @@ body {
 img {
     max-width: 100%;
 }
+
 div {
     display: block;
 }
+
 img {
     overflow-clip-margin: content-box;
     overflow: clip;
 }
 
-h3 {
-    display: block;
-    font-size: 1.17em;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-p {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
 a {
     text-decoration: none;
 }
+
 .main {
     width: 100%;
     padding: 0;
 }
+
 .inner-wrapper {
     width: 100%;
     max-width: 1000px;
@@ -61,10 +50,7 @@ a {
 .button {
     background-color: #0076df;
     border: 0.666667px solid #0000;
-    /* border-color: #0000; */
     border-radius: 980px;
-    /* border-style: solid; */
-    /* border-width: 0.666667px; */
     color: #fff;
     font-size: 17px;
     font-weight: 600;
@@ -74,14 +60,73 @@ a {
     text-align: center;
     z-index: 4;
 }
+
 .button-secondary {
     background-color: #ffffff00;
     border: 1px solid #0076df;
     color: #0076df;
 }
+
 .button-secondary:hover {
     background-color: #0076df;
     color: #fff;
+}
+
+/* =================== Header ======================= */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    color: black;
+    font-weight: 200;
+    font-size: 0.42em;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-nav ul {
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-item a {
+    display: block;
+    color: #000;
+    font-weight: 400;
+    width: 100%;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.store-item,
+.mac-item,
+.ipad-item,
+.iphone-item,
+.watch-item,
+.vision-item,
+.airpods-item,
+.tv-item,
+.entertainment-item,
+.accesories-item,
+.support-item {
+    position: static;
+    padding-bottom: 20px;
+    margin-bottom: -20px;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
 }
 
 /* ====================== Dropdown ================================ */
@@ -105,17 +150,17 @@ a {
     pointer-events: none;
 }
 
-.header-wrapper:has(.store-item:hover) .store-dropdown,
-.header-wrapper:has(.mac-item:hover) .mac-dropdown,
-.header-wrapper:has(.ipad-item:hover) .ipad-dropdown,
-.header-wrapper:has(.iphone-item:hover) .iphone-dropdown,
-.header-wrapper:has(.watch-item:hover) .watch-dropdown,
-.header-wrapper:has(.vision-item:hover) .vision-dropdown,
-.header-wrapper:has(.airpods-item:hover) .airpods-dropdown,
-.header-wrapper:has(.tv-item:hover) .tv-dropdown,
-.header-wrapper:has(.entertainment-item:hover) .entertainment-dropdown,
-.header-wrapper:has(.accessories-item:hover) .accessories-dropdown,
-.header-wrapper:has(.support-item:hover) .support-dropdown,
+.header:has(.store-item:hover) .store-dropdown,
+.header:has(.mac-item:hover) .mac-dropdown,
+.header:has(.ipad-item:hover) .ipad-dropdown,
+.header:has(.iphone-item:hover) .iphone-dropdown,
+.header:has(.watch-item:hover) .watch-dropdown,
+.header:has(.vision-item:hover) .vision-dropdown,
+.header:has(.airpods-item:hover) .airpods-dropdown,
+.header:has(.tv-item:hover) .tv-dropdown,
+.header:has(.entertainment-item:hover) .entertainment-dropdown,
+.header:has(.accessories-item:hover) .accessories-dropdown,
+.header:has(.support-item:hover) .support-dropdown,
 .nav-dropdown:hover {
     visibility: visible;
     pointer-events: auto;
@@ -139,9 +184,9 @@ a {
     font-size: 12px;
     color: #6e6e73;
     font-weight: 400;
-    margin: 0 0 10px 0;
-    /* font-family: -apple-system, BlinkMacSystemFont, sans-serif; */
+    margin: 0 0 15px 0;
     display: block;
+    font-weight: 400;
 }
 
 /* ── Big bold product name links (col 1) ── */
@@ -174,6 +219,7 @@ a {
     list-style: none;
     padding: 0;
     margin: 0;
+    font-weight: 600;
 }
 
 .dropdown-links li {
@@ -204,6 +250,7 @@ a {
     margin: 10px 0 0 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     padding-top: 10px;
+    color: #000;
 }
 
 .dropdown-small-extras li {
@@ -214,9 +261,9 @@ a {
 
 .dropdown-small-extras li a {
     font-size: 12px;
-    color: #0071e3;
     text-decoration: none;
-    /* font-family: -apple-system, BlinkMacSystemFont, sans-serif; */
+    color: #000;
+    font-weight: 400;
 }
 
 .dropdown-small-extras li a:hover {
@@ -263,60 +310,7 @@ body:has(.nav-dropdown:hover)::after {
     }
 }
 
-/* ============================ nav ============================== */
-.header-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.72);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    color: black;
-    font-weight: 200;
-    font-size: 0.42em;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.main-nav ul {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* height: 100%; */
-    list-style: none;
-    height: 44px;
-}
-.nav-item a {
-    display: block;
-    color: #000;
-    font-weight: 400;
-    width: 100%;
-    font-size: 12px;
-    text-decoration: none;
-}
-.store-item,
-.mac-item,
-.ipad-item,
-.iphone-item,
-.watch-item,
-.vision-item,
-.airpods-item,
-.tv-item,
-.entertainment-item,
-.accesories-item,
-.support-item {
-    position: static;
-    padding-bottom: 20px;
-    margin-bottom: -20px;
-}
-.nav-icons {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px;
-}
+/* =================== Section ======================= */
 .section {
     display: grid;
     grid-template-columns: 1fr;
@@ -325,7 +319,7 @@ body:has(.nav-dropdown:hover)::after {
     margin-bottom: 12px;
 }
 /* ======================== tile =========================== */
-.tile-wrapper {
+.tile {
     display: flex;
     justify-content: center;
     position: relative;
@@ -339,7 +333,7 @@ body:has(.nav-dropdown:hover)::after {
     background-position: center;
     background-repeat: no-repeat;
 }
-.tile-copy-wrapper {
+.tile-text {
     position: relative;
     pointer-events: none;
     z-index: 2;
@@ -367,17 +361,6 @@ body:has(.nav-dropdown:hover)::after {
     line-height: 1.0714285714;
     font-weight: 600;
     letter-spacing: -0.005em;
-}
-.tile-subhead {
-    font-weight: 600;
-    letter-spacing: -0.005em;
-}
-.tile-headline img {
-    width: auto;
-    height: 49px;
-}
-
-.typography-tile-headline {
     font-size: 40px;
     /* font-size: 3.2vw; */
     margin-bottom: 17px;
@@ -385,15 +368,27 @@ body:has(.nav-dropdown:hover)::after {
     font-weight: 600;
     letter-spacing: -0.05em;
 }
-.typography-tile-subhead {
+.tile-subhead {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     font-size: 21px;
     /* font-size: 1.4vw; */
     line-height: 1.1428571429;
     /* font-weight: 4   00; */
     letter-spacing: 0.007em;
 }
+.tile-headline img {
+    width: auto;
+    height: 49px;
+}
 
-.section-hero {
+/* =================== Hero ======================= */
+.hero-section {
     width: 100%;
     color: #1d1d1f;
     display: grid;
@@ -418,48 +413,41 @@ body:has(.nav-dropdown:hover)::after {
     background-image: url("images/hero_college_students_2026__dzrtx52rt9aq_large_2x.jpg");
 }
 
-/* =============================== promo =================================== */
-.section-promo {
+/* =================== Promo ======================= */
+.promo-section {
+    grid-template-columns: 1fr 1fr;
+
     padding-left: max(12px, env(safe-area-inset-left) - 12px);
     padding-right: max(12px, env(safe-area-inset-right) - 12px);
 }
-.section-promo .section {
-    grid-template-columns: 1fr 1fr;
-}
-.section-promo .tile-wrapper {
+
+.promo-section .tile {
     min-height: 580px;
 }
-.section-promo .tile-subhead {
-    margin-top: 3px;
-    font-weight: 600;
-}
-.section-promo .tile-headline {
+
+.promo-section .tile-headline {
     font-size: 40px;
     line-height: 1.1;
     font-weight: 600;
     letter-spacing: 0em;
 }
-.section-promo .tile-subhead {
+
+.promo-section .tile-subhead {
+    margin-top: 3px;
+    font-weight: 600;
     font-size: 21px;
     line-height: 1.1904761905;
     font-weight: 400;
     letter-spacing: 0.011em;
 }
+
 .logo-image {
     margin-top: 5px;
     margin-bottom: -5px;
 }
-/* .section-promo .logo-image {
+/* .promo-section .logo-image {
     margin-top: 4px;
 } */
-
-.section-promo.section {
-    grid-template-columns: 1fr 1fr;
-}
-
-.section-promo .tile-wrapper {
-    min-height: 580px;
-}
 
 /* --------------------- promo images ----------------------- */
 #macbook-air-m5 {
@@ -485,32 +473,32 @@ body:has(.nav-dropdown:hover)::after {
     background-image: url("images/promo_iphone_tradein__e4hrjxmgmf0i_large_2x.jpg");
 }
 
-/* ======================= entertainment ======================== */
+/* =================== Gallery ======================= */
+
 .section .endless-entertainment {
-    margin: 0;
-    padding: 53px 0 0;
-    background-color: #f5f5f7;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    margin: 0;
+    padding: 53px 0 0;
+    background-color: #f5f5f7;
 }
-.media-gallery {
+.gallery {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
 }
-.media-gallery-headline-container {
+
+.gallery-headline {
     text-align: center;
-}
-.media-gallery-headline {
     font-size: 56px;
     font-weight: 600;
     letter-spacing: -0.005em;
     color: #000;
 }
 
-.media-gallery-item-container {
+.gallery-item-container {
     width: 100%;
     display: flex;
     gap: 1.2rem;
@@ -523,7 +511,7 @@ body:has(.nav-dropdown:hover)::after {
     scroll-snap-stop: always;
     -webkit-overflow-scrolling: touch;
 }
-.media-gallery-item {
+.gallery-item {
     position: relative;
     flex: 0 0 70%;
     scroll-snap-align: center;
@@ -539,7 +527,7 @@ body:has(.nav-dropdown:hover)::after {
     width: 1250px;
     margin-bottom: 20px;
 }
-.media-gallery-item img {
+.gallery-item img {
     position: absolute;
     position: static;
     width: 100%;
@@ -548,7 +536,7 @@ body:has(.nav-dropdown:hover)::after {
     object-fit: cover; /* 2. Prevents image distortion */
     object-position: center; /* Centers the image during cropping */
 }
-.fam-media-gallery .media-gallery-item {
+.fam-gallery .gallery-item {
     flex: 0 0 30%;
     height: auto;
     /* height: 270px;
@@ -559,7 +547,7 @@ body:has(.nav-dropdown:hover)::after {
     background-color: rgb(101, 105, 103);
     /* position: static; */
 }
-.tv-media-gallery .media-gallery-item {
+.tv-gallery .gallery-item {
     /* flex: 0 0 30%; */
     /* height: auto; */
     /* width: auto; */
@@ -569,7 +557,7 @@ body:has(.nav-dropdown:hover)::after {
     background-color: rgb(101, 105, 103);
 }
 /* =============================== gallery content============================ */
-.media-gallery-contents {
+/* .gallery-contents {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -578,44 +566,44 @@ body:has(.nav-dropdown:hover)::after {
     justify-content: space-between;
     z-index: 1000;
 }
-.media-gallery-top-content {
+.gallery-top-content {
     display: flex;
     align-items: center;
     justify-content: end;
     padding: 10px;
     z-index: 1000;
 }
-.media-gallery-top-content svg {
+.gallery-top-content svg {
     width: 88px;
     height: 20px;
     fill: #fff;
 }
-.media-gallery-bottom-content {
+.gallery-bottom-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
 }
-/* .tv-media-gallery .media-gallery-top-content {
+/* .tv-gallery .gallery-top-content {
     display: none;
 } */
-.tv-media-gallery .media-gallery-bottom-content {
+/* .tv-gallery .gallery-bottom-content {
     flex-direction: row-reverse;
     justify-content: start;
     gap: 20px;
 }
-.tv-media-gallery .media-gallery-contents {
+.tv-gallery .gallery-contents {
     justify-content: end;
 }
 
-.media-gallery-content-button {
+.gallery-content-button {
     background-color: #ffffff;
     border-color: #0000;
     color: #000000;
-}
+} */
 
-/* ========================= footer =================================== */
-.footer-wrapper {
+/* =================== footer ======================= */
+.footer {
     background-color: #f5f5f7;
     color: black;
     font-size: 12px;
@@ -649,6 +637,13 @@ body:has(.nav-dropdown:hover)::after {
 }
 
 .footer-nav-col h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
     font-size: 12px;
     font-weight: 600;
 }
@@ -658,7 +653,7 @@ body:has(.nav-dropdown:hover)::after {
     /* display: flex; */
     /* align-content: center; */
     /* text-align: justify; */
-    /* padding: 10px 10px;/ */
+    padding: 25px 0px;
     margin: 0 auto;
     color: #515154;
 }
@@ -694,7 +689,7 @@ body:has(.nav-dropdown:hover)::after {
     border-right: 0px;
 }
 
-/* ========================== mobile ============================= */
+/* =================== Breakpoints ======================= */
 @media (max-width: 768px) {
     .store-item,
     .mac-item,
@@ -709,13 +704,12 @@ body:has(.nav-dropdown:hover)::after {
     .support-item {
         display: none;
     }
-    .section-promo {
+    .promo-section {
         display: flex;
         flex-direction: column;
-        padding-left: 0;
-        padding-right: 0;
+        padding: 0;
     }
-    .media-gallery-headline {
+    .gallery-headline {
         font-size: 35px;
     }
     .footer-contact {
@@ -728,6 +722,15 @@ body:has(.nav-dropdown:hover)::after {
     .footer-nav-col {
         flex: 1;
         width: 100%;
+        text-align: center;
+    }
+    .footer-nav-col h3 {
+        font-size: 17px;
+    }
+    .footer-nav-col ul li a {
+        text-decoration: none;
+        color: #515154;
+        font-size: 15px;
     }
     .footer-copyright {
         flex-direction: column-reverse;
@@ -765,10 +768,8 @@ body:has(.nav-dropdown:hover)::after {
     }
 }
 
-
-
 @media (max-width: 480px) {
-    .section-promo {
+    .promo-section {
         display: flex;
         flex-direction: column;
         padding: 0;
@@ -780,17 +781,26 @@ body:has(.nav-dropdown:hover)::after {
     .footer-nav-col {
         flex: 1;
         width: 100%;
+        text-align: center;
     }
-    .media-gallery-headline {
+    .footer-nav-col h3 {
+        font-size: 17px;
+    }
+    .footer-nav-col ul li a {
+        text-decoration: none;
+        color: #515154;
+        font-size: 15px;
+    }
+    .gallery-headline {
         font-size: 32px;
     }
-    .tv-media-gallery .media-gallery-bottom-content {
+    /* .tv-gallery .gallery-bottom-content {
         flex-direction: column;
         gap: 10px;
     }
-    .tv-media-gallery .media-gallery-top-content {
+    .tv-gallery .gallery-top-content {
         display: block;
-    }
+    } */
     #iphone-family {
         background-image: url("images/small/hero_iphone_family__be5jkzxszb1e_small_2x.jpg");
     }
@@ -823,4 +833,3 @@ body:has(.nav-dropdown:hover)::after {
         background-image: url("images/small/promo_iphone_tradein__e4hrjxmgmf0i_small_2x.jpg");
     }
 }
-
