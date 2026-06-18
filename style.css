@@ -691,6 +691,9 @@ body:has(.nav-dropdown:hover)::after {
 
 /* =================== Breakpoints ======================= */
 @media (max-width: 768px) {
+    .nav-dropdown {
+        display: none !important;
+    }
     .store-item,
     .mac-item,
     .ipad-item,
@@ -712,8 +715,24 @@ body:has(.nav-dropdown:hover)::after {
     .gallery-headline {
         font-size: 35px;
     }
+    .gallery {
+        width: 100%;
+        overflow: hidden;
+    }
+    .gallery-item-container {
+        max-width: 100%;
+    }
+    .gallery-item {
+        width: auto !important;
+        flex: 0 0 80%;
+    }
+    .fam-gallery .gallery-item {
+        flex: 0 0 45%;
+    }
     .footer-contact {
-        display: flex;
+        display: block;
+        text-align: center;
+        padding: 15px 10px;
     }
     .footer-nav {
         flex-direction: column;
@@ -734,6 +753,32 @@ body:has(.nav-dropdown:hover)::after {
     }
     .footer-copyright {
         flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+        padding-top: 15px;
+    }
+    .footer-copyright ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 0;
+        margin: 10px 0;
+    }
+    .footer-copyright ul li {
+        list-style: none;
+        display: inline-block;
+        border-right: 1px solid #ccc;
+        padding: 0 8px;
+        margin: 0;
+        line-height: 1.2;
+    }
+    .footer-copyright ul li:last-child {
+        border-right: none;
+    }
+    .footer-country {
+        margin-bottom: 5px;
     }
     #iphone-family {
         background-image: url("images/medium/hero_iphone_family__be5jkzxszb1e_mediumtall_2x.jpg");
@@ -794,13 +839,33 @@ body:has(.nav-dropdown:hover)::after {
     .gallery-headline {
         font-size: 32px;
     }
-    /* .tv-gallery .gallery-bottom-content {
-        flex-direction: column;
-        gap: 10px;
+    .gallery-item {
+        flex: 0 0 85%;
     }
-    .tv-gallery .gallery-top-content {
-        display: block;
-    } */
+    .fam-gallery .gallery-item {
+        flex: 0 0 60%;
+    }
+    .tile-headline {
+        font-size: 30px;
+        margin-bottom: 12px;
+    }
+    .tile-headline img {
+        height: 38px;
+    }
+    .tile-subhead,
+    .promo-section .tile-subhead {
+        font-size: 16px;
+    }
+    .tile-ctas {
+        column-gap: 12px;
+        row-gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .button {
+        font-size: 15px;
+        padding: 8px 16px;
+    }
     #iphone-family {
         background-image: url("images/small/hero_iphone_family__be5jkzxszb1e_small_2x.jpg");
     }
@@ -831,5 +896,36 @@ body:has(.nav-dropdown:hover)::after {
     }
     #iphone-tradein {
         background-image: url("images/small/promo_iphone_tradein__e4hrjxmgmf0i_small_2x.jpg");
+    }
+}
+
+@media (max-width: 320px) {
+    .tile-headline {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+    .tile-headline img {
+        height: 32px;
+    }
+    .tile-subhead,
+    .promo-section .tile-subhead {
+        font-size: 14px;
+    }
+    .tile-ctas {
+        column-gap: 8px;
+        row-gap: 6px;
+    }
+    .button {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    .gallery-item {
+        flex: 0 0 90%;
+    }
+    .fam-gallery .gallery-item {
+        flex: 0 0 75%;
+    }
+    .gallery-headline {
+        font-size: 26px;
     }
 }
